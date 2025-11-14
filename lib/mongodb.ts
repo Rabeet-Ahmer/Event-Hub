@@ -16,8 +16,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 
 // Initialize the cache on the global object to persist across hot reloads in development
-let cached: MongooseCache =
-  global.mongooseCache || { conn: null, promise: null };
+let cached: MongooseCache = global.mongooseCache || { conn: null, promise: null };
 
 if (!global.mongooseCache) {
   global.mongooseCache = cached;
