@@ -6,6 +6,18 @@ type RouteParams = {
   params: Promise<{ slug: string }>;
 };
 
+/**
+ * Handle GET requests to fetch an event by its route slug.
+ *
+ * Validates and normalizes the `slug` route parameter, attempts to load the matching event from the database, and returns a JSON NextResponse describing the result.
+ *
+ * @param params - Route parameters containing a `slug` string
+ * @returns A NextResponse with JSON:
+ *  - 200: `{ message: "Event fetched successfully", event }`
+ *  - 404: `{ message: "Event with slug: <slug> not found" }`
+ *  - 400: `{ message: "Invalid or missing slug parameter" }`
+ *  - 500: `{ message: "Database configuration error" }` or `{ message: "Failed to fetch event", error: "<error message>" }` or `{ message: "An unexpected error occurred" }`
+ */
 export async function GET(req: NextRequest, { params }: RouteParams): Promise<NextResponse> {
 
   try {

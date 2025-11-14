@@ -3,6 +3,14 @@ import {v2 as cloudinary} from "cloudinary";
 import connectDB from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Creates a new event from multipart/form-data, uploads the provided image to Cloudinary, and stores the event in the database.
+ *
+ * Expects multipart/form-data with standard event fields, `image` (File, required), and `tags` and `agenda` as JSON-encoded strings.
+ *
+ * @param req - Incoming NextRequest containing multipart/form-data with event fields and the image file
+ * @returns On success, a JSON object with a success message and the created event; on client validation errors, a JSON object with an error message and a 400 status; on server errors, a JSON object with an error message and a 500 status
+ */
 export async function POST(req: NextRequest) {
     try {
         await connectDB();
@@ -51,6 +59,11 @@ export async function POST(req: NextRequest) {
     }
 }
 
+/**
+ * Handle GET requests to retrieve all events sorted by creation date (newest first).
+ *
+ * @returns A JSON response with `message` and `events` (array of Event documents) on success; on failure, a JSON response with `message` and `error`.
+ */
 export async function GET() {
     try {
         await connectDB();
